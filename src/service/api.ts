@@ -29,12 +29,13 @@ const getFullUrl = (url: string) => {
   if (!url.startsWith('/')) {
     url = '/' + url;
   }
-  return `${process.env.NEXT_PUBLIC_APP_API}` + url;
+  
+return `${process.env.NEXT_PUBLIC_APP_API}` + url;
 };
 
 export const excludeResponse = ['empty_response'];
 
-export const checkSusscessRequest = (response: any) => {
+export const checkSuccessRequest = (response: any) => {
   return response?.status < HTTP_STATUS_CONTSTANTS.ERROR;
 };
 
@@ -55,7 +56,8 @@ const checkErrorStatus = (
       !options?.isHideErrorMessage && showMessage(typeOfMessage.ERROR, response?.meta?.msg);
     }
   }
-  return response;
+  
+return response;
 };
 const checkExpiredOrAuthorization = (response: any) => {
   return HTTP_STATUS_CONTSTANTS.ERROR_CODE_401 === response?.status;
@@ -74,7 +76,8 @@ const api = {
           if (checkExpiredOrAuthorization(response)) {
             return response?.data;
           }
-          return checkErrorStatus(response, options);
+          
+return checkErrorStatus(response, options);
         },
         (err: any) => {
           return checkErrorStatus(err?.response, options);
@@ -96,7 +99,8 @@ const api = {
           if (checkExpiredOrAuthorization(response)) {
             return response?.data;
           }
-          return checkErrorStatus(response, options);
+          
+return checkErrorStatus(response, options);
         },
         (err: any) => {
           return checkErrorStatus(err?.response, options);
@@ -119,7 +123,8 @@ const api = {
           if (checkExpiredOrAuthorization(response)) {
             return checkErrorStatus(response?.data, options);
           }
-          return checkErrorStatus(response, options);
+          
+return checkErrorStatus(response, options);
         },
         (err: any) => {
           return checkErrorStatus(err?.response, options);
@@ -141,7 +146,8 @@ const api = {
           if (checkExpiredOrAuthorization(response)) {
             return checkErrorStatus(response?.data, options);
           }
-          return checkErrorStatus(response, options);
+          
+return checkErrorStatus(response, options);
         },
         (err: any) => {
           return checkErrorStatus(err?.response, options);
@@ -163,7 +169,8 @@ const api = {
           if (checkExpiredOrAuthorization(response)) {
             return checkErrorStatus(response?.data, options);
           }
-          return checkErrorStatus(response, options);
+          
+return checkErrorStatus(response, options);
         },
         (err: any) => {
           return checkErrorStatus(err?.response, options);
@@ -185,7 +192,8 @@ const api = {
           if (checkExpiredOrAuthorization(response)) {
             return checkErrorStatus(response?.data, options);
           }
-          return checkErrorStatus(response, options);
+          
+return checkErrorStatus(response, options);
         },
         (err: any) => {
           return checkErrorStatus(err?.response, options);
@@ -208,7 +216,8 @@ const api = {
           if (checkExpiredOrAuthorization(response)) {
             return response?.data;
           }
-          return checkErrorStatus(response, options);
+          
+return checkErrorStatus(response, options);
         },
         (err: any) => {
           return checkErrorStatus(err?.response, options);
@@ -233,7 +242,8 @@ const apiCustom = {
           if (checkExpiredOrAuthorization(response)) {
             return checkErrorStatus(response?.data, options);
           }
-          return checkErrorStatus(response?.data, options);
+          
+return checkErrorStatus(response?.data, options);
         },
         (err: any) => {
           return (err?.response?.data && checkErrorStatus(err.response.data, options));
