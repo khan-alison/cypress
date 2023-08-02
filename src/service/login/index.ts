@@ -1,8 +1,15 @@
+import { IFormLogin } from "src/utils/type";
 import { api } from "../api";
 
 class LoginServices {
-    handleLogin = (data: { username: string; password: string; }) => {
-        return api.post('auth/login', data);
+    handleLogin = (data: IFormLogin) => {
+        return api.post('/auth/admin/login', data);
+    };
+    handleRefreshToken = (refreshToken: any) => {
+        return api.post('auth/refresh-token', refreshToken)
+    }
+    handleLogout = () => {
+        return api.post('/auth/logout');
     };
 }
 

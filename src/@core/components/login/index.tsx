@@ -1,9 +1,8 @@
 // ** React Imports
-import { ChangeEvent, MouseEvent, useState } from 'react'
+import { MouseEvent, useState } from 'react'
 
 // ** Next Imports
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 
 // ** MUI Components
 import Box from '@mui/material/Box'
@@ -16,8 +15,6 @@ import FormControl from '@mui/material/FormControl'
 import MuiFormControlLabel, { FormControlLabelProps } from '@mui/material/FormControlLabel'
 import IconButton from '@mui/material/IconButton'
 import InputAdornment from '@mui/material/InputAdornment'
-import InputLabel from '@mui/material/InputLabel'
-import OutlinedInput from '@mui/material/OutlinedInput'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
@@ -36,12 +33,18 @@ import themeConfig from 'src/configs/themeConfig'
 // ** Layout Import
 
 // ** Demo Imports
+import { yupResolver } from '@hookform/resolvers/yup'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { useLogin } from 'src/@core/components/login/hooks'
+import { schemaLogin } from 'src/utils/schema'
+import { IFormLogin } from 'src/utils/type'
 import FooterIllustrationsV1 from 'src/views/pages/auth/FooterIllustration'
 
 interface State {
   password: string
   showPassword: boolean
 }
+
 
 // ** Styled Components
 const Card = styled(MuiCard)<CardProps>(({ theme }) => ({
@@ -67,13 +70,13 @@ const LoginForm = () => {
     password: '',
     showPassword: false
   })
+  const { onLogin } = useLogin()
+  const { register, handleSubmit, formState: { errors } } = useForm<IFormLogin | any>({
+    resolver: yupResolver(schemaLogin)
+  });
+
 
   // ** Hook
-  const router = useRouter()
-
-  const handleChange = (prop: keyof State) => (event: ChangeEvent<HTMLInputElement>) => {
-    setValues({ ...values, [prop]: event.target.value })
-  }
 
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword })
@@ -82,6 +85,10 @@ const LoginForm = () => {
   const handleMouseDownPassword = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
   }
+
+  const onSubmit: SubmitHandler<IFormLogin> = (data) => {
+    onLogin(data);
+  };
 
   return (
     <Box className='content-center'>
@@ -107,29 +114,33 @@ const LoginForm = () => {
             </Typography>
             <Typography variant='body2'>Please sign-in to your account and start the adventure</Typography>
           </Box>
-          <form noValidate autoComplete='off' onSubmit={e => e.preventDefault()}>
-            <TextField autoFocus fullWidth name='user_name' label='User Name' sx={{ marginBottom: 4 }} />
+          <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
+            <TextField autoFocus fullWidth
+              {...register("user_name")}
+              label='User Name' sx={{ marginBottom: 4 }}
+            />
+            <Typography variant='caption' color='red'>{errors.user_name?.message}</Typography>
             <FormControl fullWidth>
-              <InputLabel htmlFor='auth-login-password'>Password</InputLabel>
-              <OutlinedInput
+              <TextField
                 label='Password'
-                value={values.password}
-                id='auth-login-password'
-                onChange={handleChange('password')}
+                {...register("password")}
                 type={values.showPassword ? 'text' : 'password'}
-                endAdornment={
-                  <InputAdornment position='end'>
-                    <IconButton
-                      edge='end'
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      aria-label='toggle password visibility'
-                    >
-                      {values.showPassword ? <EyeOutline /> : <EyeOffOutline />}
-                    </IconButton>
-                  </InputAdornment>
-                }
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position='end'>
+                      <IconButton
+                        edge='end'
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        aria-label='toggle password visibility'
+                      >
+                        {values.showPassword ? <EyeOutline /> : <EyeOffOutline />}
+                      </IconButton>
+                    </InputAdornment>
+                  )
+                }}
               />
+              <Typography variant='caption' color='red'>{errors.password?.message}</Typography>
             </FormControl>
             <Box
               sx={{ mb: 4, display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'space-between' }}
@@ -144,7 +155,7 @@ const LoginForm = () => {
               size='large'
               variant='contained'
               sx={{ marginBottom: 7 }}
-              onClick={() => router.push('/')}
+              type='submit'
             >
               Login
             </Button>

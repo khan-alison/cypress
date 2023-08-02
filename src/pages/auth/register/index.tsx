@@ -211,11 +211,11 @@ const RegisterPage = () => {
               <Typography variant='body2' sx={{ marginRight: 2 }}>
                 Already have an account?
               </Typography>
-              <Typography variant='body2'>
+              {/* <Typography variant='body2'>
                 <Link passHref href='/auth/login'>
                   <LinkStyled>Sign in instead</LinkStyled>
                 </Link>
-              </Typography>
+              </Typography> */}
             </Box>
             <Divider sx={{ my: 5 }}>or</Divider>
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

@@ -29,17 +29,6 @@ const navigation = (): VerticalNavItemsType => {
       sectionTitle: 'Pages'
     },
     {
-      title: 'Login',
-      icon: Login,
-      path: '/auth/login',
-    },
-    {
-      title: 'Register',
-      icon: AccountPlusOutline,
-      path: '/auth/register',
-      openInNewTab: true
-    },
-    {
       title: 'Error',
       icon: AlertCircleOutline,
       path: '/pages/error',

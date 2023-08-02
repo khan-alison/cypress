@@ -1,28 +1,25 @@
 // ** MUI Imports
-import Card from '@mui/material/Card'
-import Grid from '@mui/material/Grid'
 import Button from '@mui/material/Button'
-import TextField from '@mui/material/TextField'
-import CardHeader from '@mui/material/CardHeader'
+import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
+import CardHeader from '@mui/material/CardHeader'
+import Grid from '@mui/material/Grid'
 import InputAdornment from '@mui/material/InputAdornment'
+import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 
 // ** Icons Imports
-import Phone from 'mdi-material-ui/Phone'
-import EmailOutline from 'mdi-material-ui/EmailOutline'
 import AccountOutline from 'mdi-material-ui/AccountOutline'
+import EmailOutline from 'mdi-material-ui/EmailOutline'
 import MessageOutline from 'mdi-material-ui/MessageOutline'
+import Phone from 'mdi-material-ui/Phone'
 
-import { useForm, SubmitHandler } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from "yup";
-// ** Third Party Imports
-import DatePicker from 'react-datepicker'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import * as yup from "yup"
 
 // ** Styled Components
-import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
-import { forwardRef, useState } from 'react'
+import { useState } from 'react'
 import DatePickerForm from 'src/@core/components/datePicker'
 
 const schema = yup.object({
@@ -33,15 +30,15 @@ const schema = yup.object({
 }).required();
 
 interface IFormInput {
-  firstName: String;
-  email: String;
-  phone: String;
+  firstName: string;
+  email: string;
+  phone: string;
   message: string;
   birth: Date
 }
 
 const FormLayoutsIcons = () => {
-  const { register, handleSubmit, setValue, formState: { errors },getValues } = useForm<IFormInput | any>({
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm<IFormInput | any>({
     resolver: yupResolver(schema)
   });
   const [date, setDate] = useState<Date | null | undefined>(null)
