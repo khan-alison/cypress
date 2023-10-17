@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
 import { useMutation } from "react-query";
 import { KEY_STORAGE } from "src/constants/common";
+import { routerURL } from "src/navigation/router";
 import { checkSuccessRequest, getToken } from "src/service/api";
 import loginServices from "src/service/login";
 
@@ -24,6 +25,7 @@ export const useLogin = () => {
       onSuccess: (res: any) => {
 
         if (checkSuccessRequest(res?.response?.data)) {
+console.log(res?.response?.data);
 
           const token = res?.response?.data?.data?.session?.accessToken;
           const refreshToken = res?.response?.data?.data?.session?.refreshToken;
@@ -76,7 +78,7 @@ export const useLogout = () => {
             variant: 'success',
             autoHideDuration: 2000,
           });
-          router.push("/auth/login");
+          router.push(routerURL.LOGIN);
         }
         else {
           // ShowMessage(TYPE_CONSTANTS.MESSAGE.ERROR, "Login fail !");

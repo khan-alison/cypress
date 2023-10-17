@@ -39,6 +39,7 @@ import { useLogin } from 'src/@core/components/login/hooks'
 import { schemaLogin } from 'src/utils/schema'
 import { IFormLogin } from 'src/utils/type'
 import FooterIllustrationsV1 from 'src/views/pages/auth/FooterIllustration'
+import { LANG_COMMON } from 'src/constants/convertLang'
 
 interface State {
   password: string
@@ -112,17 +113,17 @@ const LoginForm = () => {
             <Typography variant='h5' sx={{ fontWeight: 600, marginBottom: 1.5 }}>
               Welcome to {themeConfig.templateName}! 👋🏻
             </Typography>
-            <Typography variant='body2'>Please sign-in to your account and start the adventure</Typography>
+            <Typography variant='body2'>{LANG_COMMON.LOGIN_DECS}</Typography>
           </Box>
           <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
             <TextField autoFocus fullWidth
               {...register("user_name")}
-              label='User Name' sx={{ marginBottom: 4 }}
+              label={LANG_COMMON.USER_NAME} sx={{ marginBottom: 4 }}
             />
             <Typography variant='caption' color='red'>{errors.user_name?.message}</Typography>
             <FormControl fullWidth>
               <TextField
-                label='Password'
+                label={LANG_COMMON.PASS_WORD}
                 {...register("password")}
                 type={values.showPassword ? 'text' : 'password'}
                 InputProps={{
@@ -145,9 +146,9 @@ const LoginForm = () => {
             <Box
               sx={{ mb: 4, display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'space-between' }}
             >
-              <FormControlLabel control={<Checkbox />} label='Remember Me' />
-              <Link passHref href='/'>
-                <LinkStyled onClick={e => e.preventDefault()}>Forgot Password?</LinkStyled>
+              <FormControlLabel control={<Checkbox />} label={LANG_COMMON.REMEMBER_ME} />
+              <Link passHref href='/#'>
+                <LinkStyled onClick={e => e.preventDefault()}>{LANG_COMMON.FORGET_PASS}</LinkStyled>
               </Link>
             </Box>
             <Button
@@ -159,16 +160,6 @@ const LoginForm = () => {
             >
               Login
             </Button>
-            <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
-              <Typography variant='body2' sx={{ marginRight: 2 }}>
-                New on our platform?
-              </Typography>
-              <Typography variant='body2'>
-                <Link passHref href='/auth/register'>
-                  <LinkStyled>Create an account</LinkStyled>
-                </Link>
-              </Typography>
-            </Box>
             <Divider sx={{ my: 5 }}>or</Divider>
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Link href='/' passHref>

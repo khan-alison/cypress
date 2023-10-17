@@ -1,7 +1,9 @@
-import TYPE_CONSTANTS from "src/constants/type";
-import HTTP_STATUS_CONTSTANTS from 'src/constants/httpStatus';
-import validate from "src/utils/validate";
 import axios from "axios";
+import Cookies from "js-cookie";
+import { KEY_STORAGE } from "src/constants/common";
+import HTTP_STATUS_CONTSTANTS from 'src/constants/httpStatus';
+import TYPE_CONSTANTS from "src/constants/type";
+import validate from "src/utils/validate";
 
 
 const typeOfMessage = TYPE_CONSTANTS.MESSAGE;
@@ -35,6 +37,8 @@ const getFullUrl = (url: string) => {
 export const excludeResponse = ['empty_response'];
 
 export const checkSuccessRequest = (response: any) => {
+  Cookies.set(KEY_STORAGE.CODE_TOKEN, response?.statusCode);
+
   return response?.statusCode < HTTP_STATUS_CONTSTANTS.ERROR;
 };
 
@@ -45,8 +49,10 @@ const checkErrorStatus = (
   },
 ) => {
 
-  if (response?.statusCode >= HTTP_STATUS_CONTSTANTS.ERROR && !excludeResponse.includes(response?.data?.code)) {
-    if (HTTP_STATUS_CONTSTANTS.SERVER_ERROR !== response?.data?.code) {
+  if (response?.status >= HTTP_STATUS_CONTSTANTS.ERROR && !excludeResponse.includes(response?.data?.code)) {
+    Cookies.set(KEY_STORAGE.CODE_TOKEN, response?.status);
+    
+    if (HTTP_STATUS_CONTSTANTS.SERVER_ERROR !== response?.status) {
       const resErr = response?.data?.message
 
       return { typeOfMessage, resErr }
