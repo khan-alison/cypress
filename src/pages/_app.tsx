@@ -32,6 +32,7 @@ import 'react-perfect-scrollbar/dist/css/styles.css';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { withAuth } from 'src/@core/guards/AuthGuard';
 import '../../styles/globals.css';
+import '../../styles/main.css'
 
 // ** Extend App Props with Emotion
 export type ExtendedAppProps = AppProps & {

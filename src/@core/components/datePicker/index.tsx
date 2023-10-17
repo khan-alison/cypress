@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField'
 // ** Icons Imports
 
 import * as yup from "yup"
+
 // ** Third Party Imports
 import DatePicker from 'react-datepicker'
 
@@ -24,7 +25,8 @@ const DatePickerForm = ({ name, setDate, date, setValue, label }: DatePickerProp
 
   const CustomInput = forwardRef((props, ref) => {
     setValue(name, date)
-    return <TextField name={name} label={label} inputRef={ref} fullWidth {...props} InputProps={{
+    
+return <TextField name={name} label={label} inputRef={ref} fullWidth {...props} InputProps={{
       startAdornment: (
         <InputAdornment position='start'>
           <Date />
