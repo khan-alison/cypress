@@ -3,7 +3,7 @@ export interface IFormLogin {
   password: string;
 }
 export interface IFormParamGarden {
-  first_name: string;
+  search_field: string;
 }
 export interface IFormCreateGarden {
   first_name: string;

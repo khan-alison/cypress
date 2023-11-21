@@ -3,8 +3,6 @@ import Cookies from "js-cookie";
 import { KEY_STORAGE } from "src/constants/common";
 import HTTP_STATUS_CONTSTANTS from 'src/constants/httpStatus';
 import TYPE_CONSTANTS from "src/constants/type";
-import { routerURL } from "src/navigation/router";
-import loginServices from "src/service/login";
 import validate from "src/utils/validate";
 
 
